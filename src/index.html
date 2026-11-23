@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' blob:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WORLD OF EMPIRES</title>
+<link rel="stylesheet" href="styles/main.css" />
+<link rel="stylesheet" href="styles/mobile.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- ============ HOME ============ -->
+  <section id="home" class="screen active">
+    <div class="home-map"><canvas id="homeCanvas"></canvas></div>
+    <header class="home-top">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span><b>WORLD OF EMPIRES</b></div>
+      <div class="home-tools">
+        <button class="chip-btn" id="homeLang" data-ititle="set.language"><span id="homeLangTxt">فارسی</span></button>
+        <button class="chip-btn" id="homeSound" data-ititle="top.sound">♪</button>
+      </div>
+    </header>
+    <div class="home-body">
+      <div class="home-hero">
+        <p class="eyebrow" data-i="home.eyebrow"></p>
+        <h1><span data-i="home.title1"></span><br><em data-i="home.title2"></em></h1>
+        <p class="lead" data-i="home.lead"></p>
+        <div class="home-actions">
+          <button class="primary big" id="btnNew" data-i="home.new"></button>
+          <button class="ghost big" id="btnTutorial" data-i="home.tutorial"></button>
+          <button class="ghost big" id="btnHomeMods" data-i="home.mods"></button>
+        </div>
+        <p class="fine" data-i="home.fine"></p>
+      </div>
+      <aside class="saves">
+        <div class="saves-head"><h3 data-i="home.campaigns"></h3><span id="saveCount" class="muted"></span></div>
+        <div id="saveList"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="game" class="screen">
+    <header id="topbar">
+      <button class="icon-btn" id="btnMenu" data-ititle="top.menu"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <div class="top-title"><b id="worldTitle"></b><small id="worldDate"></small></div>
+      <div class="top-stats" id="topStats"></div>
+      <div class="top-tools">
+        <button class="icon-btn" id="btnTopSound" data-ititle="top.sound"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></svg></button>
+        <button class="chip-btn" id="btnTopLang"></button>
+        <button class="chip-btn gold" id="btnSave" data-i="top.save"></button>
+      </div>
+    </header>
+    <div id="shell">
+      <nav id="dock" aria-label="menu"></nav>
+      <aside id="panel" aria-live="polite">
+        <div class="panel-inner">
+          <header class="panel-head"><div><p class="eyebrow" id="panelEyebrow"></p><h2 id="panelTitle"></h2></div><div class="panel-tools"><button class="icon-btn sm" id="panelWide" data-ititle="panel.wide"><svg viewBox="0 0 24 24"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5"/></svg></button><button class="icon-btn sm" id="panelClose" data-ititle="panel.close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></header>
+          <div id="panelBody"></div>
+        </div>
+      </aside>
+      <main id="mapwrap">
+        <canvas id="map"></canvas>
+        <div class="vignette"></div>
+        <div id="layerBar" class="map-ui"></div>
+        <div id="zoomBtns" class="map-ui">
+          <button class="icon-btn" id="zIn" data-ititle="map.zoomIn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+          <button class="icon-btn" id="zOut" data-ititle="map.zoomOut"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+          <button class="icon-btn" id="zWorld" data-ititle="map.world"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></button>
+          <button class="icon-btn" id="zHome" data-ititle="map.home"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6-7-11a7 7 0 1114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></button>
+          <button class="icon-btn" id="zOpts" data-ititle="map.options"><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10M14 4v6M6 14v6"/></svg></button>
+        </div>
+        <div id="mapOpts" class="map-ui hidden"></div>
+        <div id="legend" class="map-ui"></div>
+        <div id="countryCard" class="map-ui hidden"></div>
+        <div id="tooltip" class="hidden"></div>
+        <div id="bottombar" class="map-ui">
+          <div class="speed"><button class="icon-btn" id="btnPlay" data-ititle="bar.play"><svg viewBox="0 0 24 24"><path id="playIcon" d="M8 5v14l11-7z"/></svg></button>
+            <div class="seg" id="speedSeg"><button data-speed="1">1×</button><button data-speed="2">2×</button><button data-speed="4">4×</button></div></div>
+          <button class="primary" id="btnAdvance"><span data-i="bar.advance"></span><kbd>Space</kbd></button>
+          <div id="ticker" class="ticker"></div>
+        </div>
+      </main>
+    </div>
+  </section>
+</div>
+<div id="coach" class="hidden"></div>
+<div id="modalRoot"></div>
+<div id="tutorialRoot"></div>
+<div id="toasts"></div>
+
+<script src="scripts/geo.js"></script>
+<script src="scripts/data.js"></script>
+<script src="scripts/i18n.js"></script>
+<script src="scripts/lang.js"></script>
+<script src="scripts/lang-mil.js"></script>
+<script src="scripts/engine.js"></script>
+<script src="scripts/military-data.js"></script>
+<script src="scripts/military.js"></script>
+<script src="scripts/audio.js"></script>
+<script src="scripts/map.js"></script>
+<script src="scripts/ui-core.js"></script>
+<script src="scripts/panels.js"></script>
+<script src="scripts/mil-panel.js"></script>
+<script src="scripts/tutorial.js"></script>
+<script src="scripts/app.js"></script>
+</body>
+</html>

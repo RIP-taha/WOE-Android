@@ -1,0 +1,87 @@
+{
+  "id": "my_mod",
+  "name": {
+    "en": "My Mod",
+    "fa": "مود من"
+  },
+  "description": {
+    "en": "Short text",
+    "fa": "توضیح کوتاه"
+  },
+  "version": "1.0",
+  "author": "you",
+  "countries": {
+    "IRN": {
+      "growth": 1.0,
+      "stability": 5
+    }
+  },
+  "production": {
+    "SAU": {
+      "oil": 0.9
+    }
+  },
+  "commodities": {
+    "copper": {
+      "demandTrend": 0.001
+    }
+  },
+  "buildings": {
+    "factory": {
+      "costMult": 0.8
+    }
+  },
+  "newBuildings": {
+    "solar": {
+      "cost": 1.0,
+      "materials": 3,
+      "months": 3,
+      "effect": "energy",
+      "icon": "☼",
+      "color": "#f2c14e",
+      "name": {
+        "en": "Solar farm",
+        "fa": "مزرعه خورشیدی"
+      },
+      "desc": {
+        "en": "Clean power",
+        "fa": "برق پاک"
+      }
+    }
+  },
+  "rules": {
+    "tariffBase": 3,
+    "globalGrowthAdd": 0.2
+  },
+  "events": [
+    {
+      "id": "boom",
+      "every": 14,
+      "title": {
+        "en": "Boom",
+        "fa": "رونق"
+      },
+      "text": {
+        "en": "Text",
+        "fa": "متن"
+      },
+      "market": {
+        "c": "copper",
+        "kind": "demand",
+        "mult": 1.15,
+        "months": 6
+      },
+      "choices": [
+        {
+          "label": {
+            "en": "OK",
+            "fa": "باشه"
+          },
+          "effects": {
+            "satisfaction": 1
+          }
+        }
+      ]
+    }
+  ]
+}
