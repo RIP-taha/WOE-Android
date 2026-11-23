@@ -1,0 +1,59 @@
+{
+  "name": "world-of-empires",
+  "version": "1.2.0-beta",
+  "description": "Offline map-based grand strategy with a global market, mods and military conquest",
+  "main": "main.js",
+  "author": "WORLD OF EMPIRES",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "node scripts/copy-fonts.js",
+    "test": "node scripts/selftest.js && node scripts/selftest-war.js && node scripts/selftest-sandbox.js && node scripts/check-i18n.js",
+    "mobile:add": "cap add android",
+    "mobile:sync": "cap sync android",
+    "mobile:open": "cap open android"
+  },
+  "devDependencies": {
+    "electron": "^38.0.0",
+    "electron-builder": "^26.0.12",
+    "vazirmatn": "*",
+    "@capacitor/cli": "^7.4.3",
+    "@capacitor/android": "^7.4.3"
+  },
+  "build": {
+    "appId": "com.worldofempires.desktop",
+    "productName": "WORLD OF EMPIRES",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "WORLD OF EMPIRES Setup.${ext}",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3"
+  }
+}

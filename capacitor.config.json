@@ -1,0 +1,7 @@
+{
+  "appId": "com.worldofempires.mobile",
+  "appName": "WORLD OF EMPIRES",
+  "webDir": "src",
+  "bundledWebRuntime": false,
+  "android": { "allowMixedContent": false }
+}
