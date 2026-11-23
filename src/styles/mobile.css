@@ -208,3 +208,37 @@ button, [role="button"] { touch-action: manipulation; }
   #zoomBtns { top: 7px; right: 7px; }
   #legend { bottom: 7px; }
 }
+
+/* MOBILE PANEL — compact height + touch scrolling */
+@media (max-width: 760px) and (orientation: portrait) {
+  #panel {
+    height: 42dvh !important;
+    max-height: 42dvh !important;
+    min-height: 0 !important;
+    overflow: hidden;
+  }
+
+  #panel .panel-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100% !important;
+    min-height: 0 !important;
+    overflow: hidden;
+  }
+
+  #panel .panel-head {
+    flex: 0 0 auto;
+  }
+
+  #panelBody {
+    flex: 1 1 auto;
+    height: 0;
+    min-height: 0;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    overscroll-behavior-y: contain;
+  }
+}
+
