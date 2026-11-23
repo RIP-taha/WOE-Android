@@ -1,38 +1,210 @@
-/* Mobile layout adjustments for the Capacitor Android build. */
+/* WORLD OF EMPIRES — Android/mobile layout
+   Loaded after main.css. Desktop styles remain untouched. */
 * { -webkit-tap-highlight-color: transparent; }
-html, body { width:100%; height:100%; overflow:hidden; overscroll-behavior:none; }
-body { touch-action:pan-x pan-y; }
-button, [role="button"] { touch-action:manipulation; }
+html, body { width: 100%; min-width: 0; height: 100%; overflow: hidden; overscroll-behavior: none; }
+body { touch-action: pan-x pan-y; }
+button, [role="button"] { touch-action: manipulation; }
+
 @media (max-width: 760px) {
-  #home .home-body { display:flex; flex-direction:column; gap:18px; padding:20px 16px calc(28px + env(safe-area-inset-bottom)); overflow:auto; }
-  #home .home-hero { width:100%; }
-  #home .home-actions { display:grid; grid-template-columns:1fr; gap:10px; }
-  #home .home-actions button { width:100%; min-height:48px; }
-  #home .saves { width:100%; }
-  .home-top { padding:calc(10px + env(safe-area-inset-top)) 14px 10px; }
-  #topbar { min-height:54px; padding-top:env(safe-area-inset-top); }
-  #topbar .top-stats { display:none; }
-  #shell { position:relative; height:calc(100dvh - 54px - env(safe-area-inset-top)); }
-  #dock { position:absolute; z-index:30; left:0; right:0; bottom:0; top:auto; width:100%; height:calc(58px + env(safe-area-inset-bottom)); padding:6px 8px env(safe-area-inset-bottom); display:flex; flex-direction:row; justify-content:space-around; overflow-x:auto; overflow-y:hidden; }
-  #panel { position:absolute; z-index:25; left:0; right:0; bottom:calc(58px + env(safe-area-inset-bottom)); top:auto; width:100%; max-height:min(58dvh,520px); border-radius:16px 16px 0 0; overflow:auto; }
-  #panel.hidden { display:none; }
-  #mapwrap { position:absolute; inset:0 0 calc(58px + env(safe-area-inset-bottom)) 0; }
-  #map { touch-action:none; }
-  #bottombar { left:8px; right:8px; bottom:8px; gap:6px; }
-  #bottombar #ticker { display:none; }
-  #bottombar #btnAdvance { min-height:42px; }
-  #layerBar { max-width:calc(100% - 16px); overflow-x:auto; }
-  #zoomBtns { right:8px; bottom:78px; }
-  #legend { max-width:45vw; max-height:22vh; overflow:auto; }
-  #countryCard { max-width:calc(100% - 24px); }
-  #modalRoot > * { max-width:calc(100vw - 24px); max-height:calc(100dvh - 40px - env(safe-area-inset-top)); overflow:auto; }
+  :root { --top: 52px; --dock: 54px; --pw: 0px; --pwfull: 100%; }
+  html { font-size: 14px; }
+  body { font-size: 13px; line-height: 1.5; }
+  #app, .screen { width: 100%; max-width: 100vw; min-width: 0; }
+  .screen { inset: 0; overflow: hidden; }
+
+  /* Home screen */
+  #home { overflow: hidden; }
+  .home-top {
+    position: absolute; top: 0; left: 0; right: 0;
+    min-height: 54px; padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+    gap: 8px; align-items: center;
+  }
+  .brand { gap: 8px; font-size: 11px; letter-spacing: .08em; min-width: 0; }
+  .brand-mark { width: 18px; height: 18px; flex: none; }
+  .home-tools { gap: 5px; flex: none; }
+  .home-tools .chip-btn { padding: 6px 8px; font-size: 11px; }
+  .home-body {
+    position: absolute; inset: calc(56px + env(safe-area-inset-top)) 0 0;
+    display: flex; flex-direction: column; align-items: stretch; justify-content: flex-start;
+    gap: 18px; padding: 18px 14px calc(20px + env(safe-area-inset-bottom));
+    overflow-x: hidden; overflow-y: auto; min-height: 0;
+  }
+  .home-hero { width: 100%; max-width: none; min-width: 0; }
+  .home-hero h1 { font-size: clamp(30px, 9vw, 42px); line-height: 1.16; margin: 8px 0 12px; overflow-wrap: normal; }
+  .fa .home-hero h1 { line-height: 1.5; }
+  .eyebrow { font-size: 10px; letter-spacing: .08em; }
+  .lead { font-size: 13px; line-height: 1.75; }
+  .home-actions { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; margin: 18px 0 10px; }
+  .home-actions button { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; font-size: 13px; }
+  .fine { font-size: 11px; line-height: 1.6; }
+  .saves { width: 100%; max-width: none; max-height: none; min-width: 0; padding: 12px; }
+  .saves-head { gap: 8px; flex-wrap: wrap; }
+
+  /* Game header and viewport */
+  #topbar {
+    position: absolute; top: 0; left: 0; right: 0; height: var(--top); min-height: var(--top);
+    padding: env(safe-area-inset-top) 8px 0; gap: 7px;
+  }
+  #topbar .icon-btn { width: 34px; height: 34px; }
+  .top-title { flex: 1; min-width: 0; max-width: none; line-height: 1.15; }
+  .top-title b { font-size: 12px; white-space: nowrap; }
+  .top-title small { font-size: 10px; }
+  .top-tools { gap: 5px; flex: none; }
+  .top-tools .chip-btn { padding: 5px 7px; font-size: 10px; }
+  #btnSave { max-width: 72px; }
+  #shell {
+    position: absolute; inset: var(--top) 0 0 0; height: auto; min-height: 0;
+    display: block; overflow: hidden;
+  }
+  #mapwrap { position: absolute; inset: 0 0 calc(58px + env(safe-area-inset-bottom)) 0; min-width: 0; min-height: 0; overflow: hidden; }
+  #map { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; }
+
+  /* Bottom navigation */
+  #dock {
+    position: absolute; z-index: 35; left: 0; right: 0; top: auto; bottom: 0;
+    width: 100%; height: calc(58px + env(safe-area-inset-bottom));
+    padding: 5px 6px calc(5px + env(safe-area-inset-bottom));
+    display: flex; flex-direction: row; align-items: center; justify-content: flex-start;
+    gap: 4px; overflow-x: auto; overflow-y: hidden;
+    border-right: 0; border-top: 1px solid var(--line2);
+    scrollbar-width: none;
+  }
+  #dock::-webkit-scrollbar { display: none; }
+  .dock-btn { width: 44px; min-width: 44px; height: 44px; min-height: 44px; flex: 0 0 44px; }
+  .dock-btn svg { width: 20px; height: 20px; }
+  .dock-sep { width: 1px; height: 26px; margin: 0 3px; flex: 0 0 1px; }
+  .dock-btn.active::before { left: 9px; right: 9px; top: auto; bottom: -5px; width: auto; height: 2px; }
+
+  /* Panels: the desktop panel-inner is 440px wide; force it to fit the phone. */
+  #panel {
+    position: absolute; z-index: 30; left: 0; right: 0; top: auto;
+    bottom: calc(58px + env(safe-area-inset-bottom));
+    width: 100%; max-width: 100%; height: auto;
+    max-height: min(62dvh, 540px); min-height: 0;
+    border: 1px solid var(--line2); border-bottom: 0;
+    border-radius: 15px 15px 0 0; overflow: hidden;
+    box-shadow: 0 -12px 35px rgba(0,0,0,.35);
+  }
+  #panel.hidden { display: none !important; }
+  .panel-inner {
+    width: 100% !important; max-width: 100%; min-width: 0;
+    height: 100%; min-height: 0; transform: none;
+  }
+  .panel-head { flex: 0 0 auto; align-items: center; padding: 10px 12px 9px; gap: 8px; }
+  .panel-head h2 { font-size: 17px; line-height: 1.35; margin: 1px 0 0; }
+  .panel-head .eyebrow { font-size: 9px; }
+  .panel-tools { gap: 5px; }
+  .panel-tools .icon-btn { width: 30px; height: 30px; }
+  #panelBody {
+    width: 100%; min-width: 0; max-width: 100%;
+    padding: 10px 11px calc(18px + env(safe-area-inset-bottom));
+    overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain;
+    font-size: 12px; line-height: 1.55;
+  }
+  #panelBody * { min-width: 0; max-width: 100%; }
+  #panelBody h1 { font-size: 20px; line-height: 1.3; }
+  #panelBody h2 { font-size: 17px; line-height: 1.35; }
+  #panelBody h3 { font-size: 14px; line-height: 1.4; }
+  #panelBody h4 { font-size: 12.5px; line-height: 1.4; }
+  #panelBody p, #panelBody li, #panelBody label { font-size: 12px; line-height: 1.6; }
+  #panelBody small, #panelBody .mini { font-size: 10px; }
+  #panelBody .card { padding: 10px; margin-bottom: 9px; border-radius: 9px; }
+  #panelBody .card h3 { font-size: 13px; }
+  #panelBody .card > p.desc, #panelBody p.desc { font-size: 11px; line-height: 1.55; }
+  #panelBody .grid2, #panelBody .grid3,
+  #panelBody .wide .grid2, #panelBody .wide .grid3 {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px;
+  }
+  #panelBody .metric { padding: 8px; }
+  #panelBody .metric small { font-size: 9px; line-height: 1.35; }
+  #panelBody .metric b { font-size: 14px; overflow-wrap: anywhere; }
+  #panelBody .metric i { font-size: 10px; }
+  #panelBody .btn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  #panelBody .btn-grid button, #panelBody .btn-row button,
+  #panelBody .tabs button { min-height: 36px; padding: 7px 8px; font-size: 11px; line-height: 1.45; white-space: normal; }
+  #panelBody .btn-row { gap: 6px; }
+  #panelBody .row { gap: 8px; padding: 7px 0; font-size: 11px; }
+  #panelBody .build-card { grid-template-columns: 30px minmax(0, 1fr); gap: 8px; padding: 8px; }
+  #panelBody .build-card > :last-child { grid-column: 2; }
+  #panelBody .glyph { width: 30px; height: 30px; font-size: 15px; }
+  #panelBody .build-card h4 { font-size: 12px; }
+  #panelBody .build-card p { font-size: 10px; }
+  #panelBody .switch { gap: 8px; padding: 7px 0; font-size: 11px; }
+  #panelBody .note { padding: 8px 9px; font-size: 11px; }
+  #panelBody table { min-width: 420px; font-size: 10px; }
+  #panelBody .tablewrap { max-width: 100%; overflow-x: auto; }
+  #panelBody th { font-size: 9px; padding: 5px 4px; }
+  #panelBody td { padding: 5px 4px; }
+
+  /* Map controls */
+  #layerBar { top: 7px; left: 7px; right: 52px; max-width: none; gap: 5px; }
+  .pill-select { max-width: 100%; gap: 4px; padding: 3px 5px; font-size: 10px; }
+  .pill-select > span { white-space: normal; }
+  .pill-select select { max-width: 125px; padding: 5px 20px 5px 6px; font-size: 10px; }
+  #zoomBtns { top: 7px; right: 7px; gap: 4px; }
+  #zoomBtns .icon-btn { width: 32px; height: 32px; }
+  #legend { right: 7px; bottom: 7px; max-width: 42vw; max-height: 18vh; min-width: 0; padding: 6px 8px; font-size: 9px; }
+  #countryCard { left: 7px; right: 7px; top: 48px; width: auto; max-width: none; max-height: 45%; padding: 10px; }
+  #countryCard.left { left: 7px; right: 7px; top: 48px; max-height: 45%; }
+  #mapOpts { left: 7px; right: 48px; top: 48px; min-width: 0; max-width: calc(100% - 55px); padding: 9px; }
+  #tooltip { max-width: min(220px, 70vw); font-size: 10px; }
+  #bottombar { left: 7px; right: 7px; bottom: 7px; gap: 6px; padding: 6px; border-radius: 9px; }
+  #bottombar #ticker, #bottombar kbd { display: none; }
+  #bottombar .speed { gap: 4px; }
+  #bottombar .seg button { padding: 5px 7px; font-size: 10px; }
+  #bottombar #btnAdvance { min-height: 36px; padding: 7px 10px; font-size: 11px; flex: 1; }
+
+  /* Dialogs, tutorial and notifications */
+  .modal-back { padding: calc(10px + env(safe-area-inset-top)) 10px calc(10px + env(safe-area-inset-bottom)); }
+  .modal { width: 100%; max-width: 100%; max-height: 88dvh; padding: 14px; border-radius: 12px; }
+  .modal h2 { font-size: 19px; line-height: 1.35; margin-bottom: 12px; }
+  .modal p, .modal label, .modal button { font-size: 12px; line-height: 1.55; }
+  .modal .actions { gap: 7px; margin-top: 14px; }
+  .modal .actions button { flex: 1 1 auto; min-height: 38px; padding: 8px; }
+  .scn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .scn { padding: 8px; }
+  .scn b { font-size: 11px; }
+  .scn span { font-size: 10px; }
+  .tut { display: flex; flex-direction: column; overflow: hidden; }
+  .tut-side { display: none; }
+  .tut-main { min-height: 0; flex: 1; }
+  .tut-top { padding: 9px 12px; gap: 7px; }
+  .tut-body { padding: 14px 13px 24px; overflow: auto; }
+  .tut-body h2 { font-size: 20px; }
+  .tut-body h4 { font-size: 13px; }
+  .tut-body p, .tut-body li { font-size: 12px; line-height: 1.65; }
+  .tut-hero { grid-template-columns: 1fr; gap: 8px; margin: 12px 0; }
+  .tut-card { padding: 12px; }
+  .tut-foot { padding: 9px 12px calc(9px + env(safe-area-inset-bottom)); gap: 8px; }
+  .coach-card { left: 12px !important; right: 12px !important; width: auto; max-width: none; padding: 12px; }
+  #toasts { bottom: calc(66px + env(safe-area-inset-bottom)); width: calc(100% - 24px); }
+  .toast { padding: 8px 11px; font-size: 11px; }
 }
-@media (max-width: 760px) and (orientation:landscape) {
-  #topbar { min-height:46px; }
-  #shell { height:calc(100dvh - 46px - env(safe-area-inset-top)); }
-  #dock { top:0; bottom:0; left:0; right:auto; width:58px; height:auto; padding:8px 4px; flex-direction:column; overflow-y:auto; overflow-x:hidden; }
-  #panel { left:58px; right:auto; top:0; bottom:0; width:min(42vw,340px); max-height:none; border-radius:0 14px 14px 0; }
-  #mapwrap { inset:0 0 0 58px; }
-  #zoomBtns { bottom:12px; }
-  #bottombar { left:68px; }
+
+@media (max-width: 380px) {
+  #panelBody .grid2, #panelBody .grid3,
+  #panelBody .wide .grid2, #panelBody .wide .grid3,
+  #panelBody .btn-grid, .scn-grid { grid-template-columns: minmax(0, 1fr); }
+  .brand { font-size: 10px; }
+  .top-title b { font-size: 11px; }
+  #btnSave { max-width: 62px; }
+}
+
+@media (max-width: 760px) and (orientation: landscape) {
+  :root { --top: 44px; }
+  #topbar { height: var(--top); min-height: var(--top); padding-top: env(safe-area-inset-top); }
+  #shell { inset: var(--top) 0 0 0; }
+  #dock {
+    top: 0; bottom: 0; left: 0; right: auto; width: 48px;
+    height: auto; padding: 5px 3px; flex-direction: column;
+    overflow-x: hidden; overflow-y: auto; border-top: 0; border-right: 1px solid var(--line2);
+  }
+  .dock-btn { width: 40px; min-width: 40px; height: 38px; min-height: 38px; flex-basis: 38px; }
+  .dock-sep { width: 25px; height: 1px; flex-basis: 1px; }
+  #mapwrap { inset: 0 0 0 48px; }
+  #panel { left: 48px; right: auto; top: 0; bottom: 0; width: min(44vw, 340px); max-height: none; border-radius: 0 12px 12px 0; border-bottom: 1px solid var(--line2); }
+  #panel .panel-inner { width: 100% !important; }
+  #bottombar { left: 56px; }
+  #zoomBtns { top: 7px; right: 7px; }
+  #legend { bottom: 7px; }
 }
